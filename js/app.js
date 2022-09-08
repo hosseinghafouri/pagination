@@ -34,6 +34,8 @@ let paginationContainer = document.querySelector('#pagination');
 let currentPage = 1;
 let rowsCount = 5;
 
+let listItemsFragment = document.createDocumentFragment();
+
 function displayUesrsList (allUesrsArray, usersContainer, rowsCount, currentPage) {
     usersContainer.innerHTML = '';
 
@@ -46,8 +48,10 @@ function displayUesrsList (allUesrsArray, usersContainer, rowsCount, currentPage
         let userElement = document.createElement('div');
         userElement.classList.add('item');
         userElement.innerHTML = user.name + ' ' + user.lastName;
+        
+        listItemsFragment.appendChild(userElement);
 
-        usersContainer.appendChild(userElement);
+        usersContainer.appendChild(listItemsFragment);
     });
     console.log(paginatedUsers);
 };
@@ -59,7 +63,11 @@ function setupPagination(allUesrsArray, paginationContainer, rowsCount) {
 
     for (let index = 1; index < pageCount + 1; index++) {
         let btn = paginationBtnGenerate(allUesrsArray, index);
-        paginationContainer.appendChild(btn);
+
+        listItemsFragment.appendChild(btn);
+
+        paginationContainer.appendChild(listItemsFragment);
+
     };
 };
 
